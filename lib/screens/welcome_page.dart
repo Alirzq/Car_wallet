@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'home_page.dart';
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,19 +12,50 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Selamat datang di E-Wallet App',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Image.asset(
+              'assets/porsche_1.png', 
+              width: 250,
+              height: 250,
+              fit: BoxFit.contain,
             ),
-            SizedBox(height: 20),
-            Text(
-              'Aplikasi dompet digital untuk mengelola keuangan Anda',
-              textAlign: TextAlign.center,
+            const SizedBox(height: 30),
+            RichText(
+              text: const TextSpan(
+                style: TextStyle(fontSize: 24, color: Colors.black),
+                children: [
+                  TextSpan(text: 'Selamat datang di '),
+                  TextSpan(
+                    text: 'E-Wallet App',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () => Get.off(() => HomePage()),
-              child: Text('Mulai'),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 400, 
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: ElevatedButton(
+                  onPressed: () => Get.off(() => HomePage()),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    elevation: 2,
+                  ),
+                  child: const Text(
+                    'Mulai',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

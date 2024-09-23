@@ -9,7 +9,19 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Akun'),
+        title: Center(
+          child: Text(
+            'Akun',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        backgroundColor: Colors.white, // Warna background AppBar
+        elevation: 0, // Menghilangkan shadow
       ),
       body: Center(
         child: Column(
@@ -21,24 +33,17 @@ class AccountPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Nama Pengguna',
+              'Budiono Siregar',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Text('user@email.com'),
+            Text('budionosiregar@gmail.com'),
             SizedBox(height: 20),
             Obx(() => Text(
                   'Saldo: Rp${walletController.balance.value.toStringAsFixed(2)}',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 )),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Implementasi fungsi logout di sini
-                Get.snackbar('Logout', 'Anda telah keluar dari akun');
-              },
-              child: Text('Logout'),
-            ),
           ],
         ),
       ),
