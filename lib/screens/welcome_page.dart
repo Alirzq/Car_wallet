@@ -8,6 +8,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,7 +22,7 @@ class WelcomePage extends StatelessWidget {
             const SizedBox(height: 30),
             RichText(
               text: const TextSpan(
-                style: TextStyle(fontSize: 24, color: Colors.black),
+                style: TextStyle(fontSize: 20, color: Colors.black),
                 children: [
                   TextSpan(text: 'Selamat datang di '),
                   TextSpan(
@@ -33,13 +34,13 @@ class WelcomePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              width: 400, 
+              width: 300, 
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ElevatedButton(
                   onPressed: () => Get.off(() => HomePage()),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    backgroundColor: Color.fromARGB(0, 0, 0, 0),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -47,7 +48,7 @@ class WelcomePage extends StatelessWidget {
                     elevation: 2,
                   ),
                   child: const Text(
-                    'Mulai',
+                    'Welcome',
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 18,

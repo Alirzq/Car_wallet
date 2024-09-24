@@ -75,16 +75,16 @@ class HomeContent extends StatelessWidget {
               children: [
                 Center(
                   child: Text(
-                    'Home',
+                    '',
                     style: TextStyle(
                       fontFamily: 'Roboto',
-                      fontSize: 30,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 CarSlider(cars: cars, currentCarIndex: currentCarIndex),
                 const SizedBox(height: 20),
                 const Text(

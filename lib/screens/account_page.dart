@@ -8,13 +8,14 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Akun',
+            '',
             style: TextStyle(
               fontFamily: 'Roboto',
-              fontSize: 30,
+              fontSize: 10,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
