@@ -14,36 +14,36 @@ class CustomNavbar extends StatelessWidget {
       () => FlashyTabBar(
         selectedIndex: currentIndex.value,
         showElevation: true,
-        backgroundColor: Colors.black, // Mengubah warna navbar menjadi hitam
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255), 
         onItemSelected: onItemSelected,
         items: [
           FlashyTabBarItem(
-            icon: Icon(Icons.home, color: Colors.white),
+            icon: Icon(Icons.home, color: const Color.fromARGB(255, 0, 0, 0), size: 30), 
             title: Text(
               'Home',
               style: TextStyle(
-                fontWeight: FontWeight.bold, // Membuat font tebal
-                color: Colors.white,
+                fontWeight: FontWeight.bold, 
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.account_balance_wallet, color: Colors.white),
+            icon: Icon(Icons.account_balance_wallet, color: Colors.black, size: 30), 
             title: Text(
               'Wallet',
               style: TextStyle(
                 fontWeight: FontWeight.bold, // Membuat font tebal
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.person, color: Colors.white),
+            icon: Icon(Icons.person, color: Colors.black, size: 30), // Memperbesar icon
             title: Text(
               'Account',
               style: TextStyle(
                 fontWeight: FontWeight.bold, // Membuat font tebal
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
