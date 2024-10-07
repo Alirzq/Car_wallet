@@ -9,96 +9,87 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            '',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              color: Colors.black, // Warna teks AppBar
-            ),
-          ),
-        ),
-        backgroundColor: Colors.white, // Warna background AppBar
-        elevation: 0, // Menghilangkan shadow bawah AppBar
-      ),
+      backgroundColor: Colors.white, // Ubah background menjadi putih
       body: Padding(
-        padding: const EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(117, 0, 0, 0),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 41, 41, 41).withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            Image.asset(
+              'assets/porsche_1.png',
+              width: 250,
+              height: 250,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 30),
+            RichText(
+              text: const TextSpan(
+                style: TextStyle(fontSize: 24, color: Colors.black),
                 children: [
-                  Obx(() => Text(
-                        'Saldo: Rp${walletController.balance.value.toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                        ),
-                        textAlign: TextAlign.center,
-                      )),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 0, 0, 0),
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            shadowColor: Colors.black.withOpacity(0.5),
-                            elevation: 8,
-                          ),
-                          onPressed: () => _showTopUpDialog(),
-                          child: Text('Top Up'),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      // Tombol Pengeluaran
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 0, 0, 0),
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            shadowColor: Colors.black.withOpacity(0.5),
-                            elevation: 8,
-                          ),
-                          onPressed: () => _showExpenseDialog(),
-                          child: Text('Pengeluaran'),
-                        ),
-                      ),
-                    ],
+                  TextSpan(text: 'Saldo Anda: '),
+                  TextSpan(
+                    text: 'Rp ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 10),
+            Obx(() => Text(
+              'Rp ${walletController.balance.value.toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            )),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _showTopUpDialog(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black, // Warna background hitam
+                      foregroundColor: Colors.white, // Warna teks putih
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: Text('Top Up'),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _showExpenseDialog(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black, // Warna background hitam
+                      foregroundColor: Colors.white, // Warna teks putih
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: Text('Pengeluaran'),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Transaksi Terakhir',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 10),
             Expanded(child: TransactionList()),
           ],
         ),
@@ -106,31 +97,20 @@ class WalletPage extends StatelessWidget {
     );
   }
 
-    void _showTopUpDialog() {
+  void _showTopUpDialog() {
     TextEditingController amountController = TextEditingController();
     Get.dialog(
       AlertDialog(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Top Up',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: Text('Top Up'),
         content: TextField(
           controller: amountController,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: 'Jumlah',
-            labelStyle: TextStyle(color: Colors.black),
-          ),
-          style: TextStyle(color: Colors.black),
+          decoration: InputDecoration(labelText: 'Jumlah'),
         ),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text(
-              'Batal',
-              style: TextStyle(color: Colors.black), // Warna teks hitam
-            ),
+            child: Text('Batal'),
           ),
           TextButton(
             onPressed: () {
@@ -139,10 +119,7 @@ class WalletPage extends StatelessWidget {
                 Get.back();
               }
             },
-            child: Text(
-              'Top Up',
-              style: TextStyle(color: Colors.black), // Warna teks hitam
-            ),
+            child: Text('Top Up'),
           ),
         ],
       ),
@@ -154,53 +131,34 @@ class WalletPage extends StatelessWidget {
     TextEditingController labelController = TextEditingController();
     Get.dialog(
       AlertDialog(
-        backgroundColor: Colors.white, // Warna latar putih
-        title: Text(
-          'Pengeluaran',
-          style: TextStyle(color: Colors.black), // Warna teks hitam
-        ),
+        title: Text('Pengeluaran'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: amountController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Jumlah',
-                labelStyle: TextStyle(color: Colors.black), // Warna label hitam
-              ),
-              style: TextStyle(color: Colors.black), // Warna input teks hitam
+              decoration: InputDecoration(labelText: 'Jumlah'),
             ),
             TextField(
               controller: labelController,
-              decoration: InputDecoration(
-                labelText: 'Label',
-                labelStyle: TextStyle(color: Colors.black), // Warna label hitam
-              ),
-              style: TextStyle(color: Colors.black), // Warna input teks hitam
+              decoration: InputDecoration(labelText: 'Label'),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text(
-              'Batal',
-              style: TextStyle(color: Colors.black), // Warna teks hitam
-            ),
+            child: Text('Batal'),
           ),
           TextButton(
             onPressed: () {
               if (amountController.text.isNotEmpty && labelController.text.isNotEmpty) {
-                walletController.addExpense(
-                    double.parse(amountController.text), labelController.text);
+                walletController.addExpense(double.parse(amountController.text), labelController.text);
                 Get.back();
               }
             },
-            child: Text(
-              'Tambah',
-              style: TextStyle(color: Colors.black), // Warna teks hitam
-            ),
+            child: Text('Tambah'),
           ),
         ],
       ),

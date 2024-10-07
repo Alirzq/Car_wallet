@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'screens/welcome_page.dart';
-import 'controllers/wallet_controller.dart';
+import 'binding/app_binding.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,9 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: WelcomePage(),
-      initialBinding: BindingsBuilder(() {
-        Get.put(WalletController());
-      }),
+      initialBinding: AppBinding(),
     );
   }
 }

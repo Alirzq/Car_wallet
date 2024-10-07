@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WalletController extends GetxController {
@@ -24,7 +25,23 @@ class WalletController extends GetxController {
         'date': DateTime.now(),
       });
     } else {
-      Get.snackbar('Error', 'Saldo tidak mencukupi');
+      // Jika saldo tidak mencukupi, tampilkan notifikasi
+      _showInsufficientBalanceDialog();
     }
+  }
+
+  void _showInsufficientBalanceDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: Text('Saldo Tidak Mencukupi'),
+        content: Text('Saldo kamu tidak mencukupi untuk melakukan pengeluaran ini.'),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -98,7 +98,7 @@ class CarSlider extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Deskripsi ${car.name}',
+            '${car.name}',
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const SizedBox(height: 10),
