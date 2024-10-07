@@ -25,7 +25,6 @@ class WalletController extends GetxController {
         'date': DateTime.now(),
       });
     } else {
-      // Jika saldo tidak mencukupi, tampilkan notifikasi
       _showInsufficientBalanceDialog();
     }
   }

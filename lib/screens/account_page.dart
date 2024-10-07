@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/wallet_controller.dart';
+import '../screens/welcome_page.dart';
 
 class AccountPage extends StatelessWidget {
   final WalletController walletController = Get.find();
@@ -8,13 +9,12 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Background menjadi putih
+      backgroundColor: Colors.white, 
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 40.0), // Padding atas ditambahkan
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 40.0), 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Card untuk informasi Profil
             Card(
               elevation: 5,
               shape: RoundedRectangleBorder(
@@ -52,7 +52,6 @@ class AccountPage extends StatelessWidget {
             ),
             SizedBox(height: 30),
 
-            // Saldo Container with Border
             Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -72,7 +71,7 @@ class AccountPage extends StatelessWidget {
                 ],
               ),
               child: Obx(() => Text(
-                    'Saldo: Rp${walletController.balance.value.toStringAsFixed(2)}',
+                    'Saldo: Rp ${walletController.balance.value.toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -80,7 +79,30 @@ class AccountPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   )),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 30, width: 200),
+            ElevatedButton(
+              onPressed: () {
+                // Navigasi ke WelcomePage
+                Get.offAll(() => WelcomePage());
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 187, 109, 109),  // Warna background merah
+                padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),  // Padding horizontal ditingkatkan untuk lebar tambahan
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),  // Border radius 10
+                ),
+                minimumSize: const Size(200, 50),  // Lebar minimum ditingkatkan menjadi 200
+                elevation: 2,  // Memberikan efek bayangan
+              ),
+              child: const Text(
+                'Logout',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),  // Warna teks putih
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),

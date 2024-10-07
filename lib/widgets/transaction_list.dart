@@ -20,7 +20,7 @@ class TransactionList extends StatelessWidget {
             title: Text(transaction['label']),
             subtitle: Text(transaction['date'].toString().substring(0, 16)),
             trailing: Text(
-              '${transaction['isTopUp'] ? '+' : '-'}Rp${transaction['amount'].toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}',
+              '${transaction['isTopUp'] ? '+' : '-'}Rp${transaction['amount'].toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => '.')}',
               style: TextStyle(
                 color: transaction['isTopUp'] ? Colors.green : Colors.red,
               ),

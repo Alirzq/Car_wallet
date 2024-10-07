@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                 children: [
                   TextSpan(text: 'Selamat datang di '),
                   TextSpan(
-                    text: 'E-Wallet App',
+                    text: 'Car-Wallet App',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -40,7 +40,7 @@ class WelcomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Get.off(() => HomePage()),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(0, 0, 0, 0),
+                    backgroundColor: Color.fromARGB(0, 255, 14, 14),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -50,7 +50,7 @@ class WelcomePage extends StatelessWidget {
                   child: const Text(
                     'Welcome',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Color.fromARGB(255, 0, 0, 0),
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

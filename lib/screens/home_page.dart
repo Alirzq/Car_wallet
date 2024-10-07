@@ -65,7 +65,7 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Mengatur latar belakang menjadi putih
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -73,26 +73,26 @@ class HomeContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center( // Memusatkan judul "Home"
+                Center( 
                   child: Text(
                     'Home',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, // Mengubah warna teks menjadi hitam
+                      color: Colors.black, 
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
-                Center( // Memusatkan judul "My Car"
+                Center( 
                   child: Text(
                     'My Car',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, // Mengubah warna teks menjadi hitam
+                      color: Colors.black, 
                     ),
                   ),
                 ),
@@ -105,7 +105,7 @@ class HomeContent extends StatelessWidget {
                     fontFamily: 'Roboto',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black, // Mengubah warna teks menjadi hitam
+                    color: Colors.black, 
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -118,8 +118,8 @@ class HomeContent extends StatelessWidget {
                         transaction['label'],
                         style: const TextStyle(
                           fontFamily: 'Roboto',
-                          color: Colors.black, // Mengubah warna teks menjadi hitam
-                          fontWeight: FontWeight.bold, // Membuat font tebal
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold, 
                         ),
                       ),
                       trailing: Text(
