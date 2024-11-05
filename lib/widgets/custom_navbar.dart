@@ -14,7 +14,7 @@ class CustomNavbar extends StatelessWidget {
       () => FlashyTabBar(
         selectedIndex: currentIndex.value,
         showElevation: true,
-        backgroundColor: Colors.black, // Mengubah warna navbar menjadi hitam
+        backgroundColor: Colors.black, 
         onItemSelected: onItemSelected,
         items: [
           FlashyTabBarItem(
@@ -22,7 +22,7 @@ class CustomNavbar extends StatelessWidget {
             title: Text(
               'Home',
               style: TextStyle(
-                fontWeight: FontWeight.bold, // Membuat font tebal
+                fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
@@ -32,7 +32,7 @@ class CustomNavbar extends StatelessWidget {
             title: Text(
               'Wallet',
               style: TextStyle(
-                fontWeight: FontWeight.bold, // Membuat font tebal
+                fontWeight: FontWeight.bold, 
                 color: Colors.white,
               ),
             ),
@@ -42,7 +42,7 @@ class CustomNavbar extends StatelessWidget {
             title: Text(
               'Account',
               style: TextStyle(
-                fontWeight: FontWeight.bold, // Membuat font tebal
+                fontWeight: FontWeight.bold, 
                 color: Colors.white,
               ),
             ),

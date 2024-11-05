@@ -4,7 +4,7 @@ import 'wallet_page.dart';
 import 'account_page.dart';
 import '../controllers/wallet_controller.dart';
 import '../widgets/car_slider.dart';
-import '../widgets/custom_navbar.dart'; // Mengimpor CustomNavbar
+import '../widgets/custom_navbar.dart';
 
 class HomePage extends StatelessWidget {
   final RxInt _currentIndex = 0.obs;
@@ -73,65 +73,31 @@ class HomeContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center( 
+                Center(
                   child: Text(
                     'Home',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, 
+                      color: Colors.black,
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
-                Center( 
+                Center(
                   child: Text(
                     'My Car',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, 
+                      color: Colors.black,
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
                 CarSlider(cars: cars, currentCarIndex: currentCarIndex),
-                const SizedBox(height: 20),
-                const Text(
-                  'Transaksi Terakhir',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black, 
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Obx(() => Column(
-                  children: walletController.transactions
-                      .take(5)
-                      .map((transaction) {
-                    return ListTile(
-                      title: Text(
-                        transaction['label'],
-                        style: const TextStyle(
-                          fontFamily: 'Roboto',
-                          color: Colors.black, 
-                          fontWeight: FontWeight.bold, 
-                        ),
-                      ),
-                      trailing: Text(
-                        '${transaction['isTopUp'] ? '+' : '-'} Rp ${transaction['amount'].toStringAsFixed(2)}',
-                        style: TextStyle(
-                          color: transaction['isTopUp'] ? Colors.green : Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                )),
               ],
             ),
           ),

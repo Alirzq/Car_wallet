@@ -9,7 +9,7 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Ubah background menjadi putih
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -34,17 +34,23 @@ class WalletPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Obx(() => Text(
-              'Rp ${walletController.balance.value.toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}',
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
-            )),
-            const SizedBox(height: 20),
+
+            GetBuilder<WalletController>(
+              builder: (controller) {
+                return Text(
+                  'Rp ${controller.balance.value.toStringAsFixed(2).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',')}',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                );
+              },
+            ),
+
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,8 +58,8 @@ class WalletPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => _showTopUpDialog(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black, // Warna background hitam
-                      foregroundColor: Colors.white, // Warna teks putih
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -62,13 +68,13 @@ class WalletPage extends StatelessWidget {
                     child: Text('Top Up'),
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 20),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => _showExpenseDialog(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black, // Warna background hitam
-                      foregroundColor: Colors.white, // Warna teks putih
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -79,7 +85,7 @@ class WalletPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Text(
               'Transaksi Terakhir',
               style: TextStyle(
@@ -90,7 +96,12 @@ class WalletPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Expanded(child: TransactionList()),
+
+            GetBuilder<WalletController>(
+              builder: (controller) {
+                return Expanded(child: TransactionList());
+              },
+            ),
           ],
         ),
       ),
@@ -113,10 +124,18 @@ class WalletPage extends StatelessWidget {
             child: Text('Batal'),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (amountController.text.isNotEmpty) {
-                walletController.topUp(double.parse(amountController.text));
-                Get.back();
+                double amount = double.parse(amountController.text);
+                bool success = await walletController.topUp(amount);
+                Get.back(); 
+                if (success) {
+                  _showCustomSnackbar(
+                    'Top Up Berhasil',
+                    'Saldo Anda bertambah Rp${amount.toStringAsFixed(2)}',
+                    Colors.green,
+                  );
+                }
               }
             },
             child: Text('Top Up'),
@@ -152,13 +171,87 @@ class WalletPage extends StatelessWidget {
             child: Text('Batal'),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (amountController.text.isNotEmpty && labelController.text.isNotEmpty) {
-                walletController.addExpense(double.parse(amountController.text), labelController.text);
+                double amount = double.parse(amountController.text);
+                String label = labelController.text;
+                bool success = await walletController.addExpense(amount, label);
+                Get.back();
+                if (success) {
+                  _showCustomSnackbar(
+                    'Transaksi Berhasil',
+                    'Pengeluaran Rp${amount.toStringAsFixed(2)} untuk $label',
+                    Colors.blue,
+                  );
+                } else {
+                  _showCustomSnackbar(
+                    'Saldo Tidak Mencukupi',
+                    'Maaf, saldo Anda tidak cukup untuk melakukan transaksi ini.',
+                    Colors.red,
+                  );
+                }
+              }
+            },
+            child: Text('Tambahkan'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCustomSnackbar(String title, String message, Color color) {
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: color.withOpacity(0.7),
+      colorText: Colors.white,
+      duration: Duration(seconds: 3),
+      margin: EdgeInsets.all(10),
+      borderRadius: 10,
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+      forwardAnimationCurve: Curves.easeOutBack,
+    );
+  }
+
+  void _showSaveItemDialog() {
+    TextEditingController amountController = TextEditingController();
+    TextEditingController labelController = TextEditingController();
+    Get.dialog(
+      AlertDialog(
+        title: Text('Simpan Item'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: 'Jumlah'),
+            ),
+            TextField(
+              controller: labelController,
+              decoration: InputDecoration(labelText: 'Label'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              if (amountController.text.isNotEmpty &&
+                  labelController.text.isNotEmpty) {
+                walletController.saveItem(
+                  double.parse(amountController.text),
+                  labelController.text,
+                );
                 Get.back();
               }
             },
-            child: Text('Tambah'),
+            child: Text('Simpan'),
           ),
         ],
       ),
